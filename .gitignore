@@ -1,0 +1,94 @@
+##############################
+# Build results
+##############################
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rm/
+[Aa]rm64/
+build/
+out/
+
+##############################
+# .NET artifacts
+##############################
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+##############################
+# User-specific files
+##############################
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+##############################
+# Visual Studio
+##############################
+.vs/
+.vscode/
+*.code-workspace
+
+##############################
+# Rider / JetBrains
+##############################
+.idea/
+*.sln.iml
+
+##############################
+# NuGet
+##############################
+*.nupkg
+*.snupkg
+.nuget/
+.nuget/packages/
+packages/
+
+##############################
+# Test results
+##############################
+TestResults/
+coverage/
+coverage.xml
+coverage.json
+*.trx
+
+##############################
+# Logs
+##############################
+logs/
+*.log
+
+##############################
+# OS generated files
+##############################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+##############################
+# Environment & secrets
+##############################
+.env
+.env.*
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+##############################
+# Docker
+##############################
+docker-compose.override.yml
+
+##############################
+# Publish
+##############################
+publish/

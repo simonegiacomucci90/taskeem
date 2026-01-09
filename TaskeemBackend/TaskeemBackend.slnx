@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="../Taskeem.Domain.EF.Tests/Taskeem.Domain.EF.Tests.csproj" Id="d6d49484-b5b4-4fc3-a61d-433e51f2b12e" />
+  <Project Path="../Taskeem.Domain.EF/Taskeem.Domain.EF.csproj" Id="4497a151-3fb7-4c23-9aca-6ad00ae9c800" />
+  <Project Path="../Taskeem.Domain/Taskeem.Domain.csproj" />
+  <Project Path="TaskeemBackend.csproj" />
+</Solution>
