@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace TaskeemBackend.Controllers
+namespace Taskeem.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
