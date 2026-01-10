@@ -9,4 +9,4 @@ const formatDate = (date : Date) =>{
 const utils = {
     formatDate
 }
-export default utils 
+export default utils

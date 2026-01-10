@@ -12,6 +12,5 @@ namespace Taskeem.Api.DTOs
 
         //Relationships
         public Guid? IdAssignee { get; set; }
-        public UserDto Assignee { get; set; }
     }
 }
