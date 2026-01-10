@@ -8,7 +8,16 @@ builder.Services.AddControllers();
 
 builder.Services.AddTaskeemDomainEF(connectionString);
 
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
+// Swagger solo in Development
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseHttpsRedirection();
 

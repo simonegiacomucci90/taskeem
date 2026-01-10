@@ -6,41 +6,25 @@ import {
     Paper,
     Typography
  } from "@mui/material"
- import type { Task } from '../models/Task'
  import utils from "../utils/utils"
- import { useEffect, useState } from "react"
+import { useAppSelector } from "../store/hooks"
 
 const TaskList: React.FC = () => {
-    const [tasks, setTasks] = useState<Task[]>([])
-    const mockTasks: Task[] = [
-        {
-          id: '1',
-          title: 'Task di esempio 1',
-          description: 'Questa è una descrizione di esempio',
-          dueDate: new Date('2024-01-15'),
-          priority: 3,
-          idAssignee: 'user1'
-        },
-        {
-          id: '2',
-          title: 'Task di esempio 2',
-          description: 'Un altro task di esempio',
-          dueDate: new Date('2024-01-20'),
-          priority: 1,
-          idAssignee: 'user2'
-        }
-    ]
-    useEffect(() => {
-        setTasks(mockTasks)
-    }, [])
+    const {currentUser, loading } = useAppSelector(state => state.user)
+
+    if(loading){
+        return <Container>
+            <Typography>Loading user...</Typography>
+        </Container>
+    }
 
     return(
         <Container>
             <Typography variant="h4" component="h1">
-                User's Task
+                {currentUser ? `${currentUser.firstName} ${currentUser.lastName}'s Tasks` : "User's Tasks"}
             </Typography>
 
-            {tasks.map((task) =>
+            {currentUser?.tasks.map((task) =>
                 <Paper>
                     <ListItem>
                         <ListItemText
@@ -64,7 +48,7 @@ const TaskList: React.FC = () => {
                 </Paper>
             )}
 
-            {tasks.length === 0 && (
+            {currentUser?.tasks.length === 0 && (
                 <Typography variant="body1" color="text.secondary" align="center">
                     No task for user
                 </Typography>
