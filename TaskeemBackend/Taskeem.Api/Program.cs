@@ -57,4 +57,23 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+// Health check endpoint
+app.MapGet("/health", async (TaskeemDbContext dbContext) =>
+{
+    try
+    {
+        // Verifica che il database sia accessibile e che le tabelle esistano
+        await dbContext.Database.CanConnectAsync();
+
+        // Verifica che almeno una tabella esista (ad esempio Users)
+        var hasUsersTable = await dbContext.Users.AnyAsync();
+
+        return Results.Ok(new { status = "healthy", database = "connected" });
+    }
+    catch (Exception ex)
+    {
+        return Results.StatusCode(503); // Service Unavailable
+    }
+});
+
 app.Run();
