@@ -65,7 +65,6 @@ export default function TaskForm(props: TaskFormProps) {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-    watch,
   } = useForm<TaskFormData>({
     resolver: yupResolver(validationSchema),
     defaultValues: {

@@ -9,9 +9,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded';
 import { Link } from 'react-router';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import { useAppSelector } from '../store/hooks';
 
 const PageContentHeader = styled('div')(({ theme }) => ({
   display: 'flex',

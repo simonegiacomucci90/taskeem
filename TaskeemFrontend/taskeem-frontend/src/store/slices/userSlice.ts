@@ -33,7 +33,7 @@ const userSlice = createSlice({
             state.currentUser = null
             state.isUserLoading = false
         },
-        setCurrentUserId: (state, action: PayloadAction<string>) => {
+        setCurrentUserId: (_state, _action: PayloadAction<string>) => {
             //When changing
         }
     },

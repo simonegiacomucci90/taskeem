@@ -1,4 +1,6 @@
 using Taskeem.Api.Options;
+using Taskeem.Domain.EF.Context;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +37,12 @@ builder.Services.AddTaskeemDomainEF(connectionString);
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<TaskeemDbContext>();
+    dbContext.Database.Migrate();
+}
 
 // Swagger solo in Development
 if (app.Environment.IsDevelopment())

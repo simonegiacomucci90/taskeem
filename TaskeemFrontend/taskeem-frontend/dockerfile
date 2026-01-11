@@ -1,0 +1,25 @@
+# =========================
+# Build stage
+# =========================
+FROM node:20-alpine AS build
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+# RUN echo "VITE_API_URL=$VITE_API_URL" > .env && \
+#     echo "VITE_CURRENT_USER=168ae654-c046-4435-b2aa-b2709124424b" >> .env
+
+RUN npm run build
+
+# =========================
+# Runtime stage
+# =========================
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

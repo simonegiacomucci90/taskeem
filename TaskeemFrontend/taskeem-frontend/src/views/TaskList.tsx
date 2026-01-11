@@ -1,5 +1,4 @@
 import * as React from 'react';
-import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
@@ -50,8 +49,6 @@ export default function TaskList() {
     rows: [],
     rowCount: 0,
   });
-
-  const [error, setError] = React.useState<Error | null>(null);
 
   const handleRefresh = React.useCallback(() => {
     if (!isUserLoading) {
@@ -254,12 +251,7 @@ export default function TaskList() {
       )}
 
       <Box sx={{ flex: 1, width: '100%' }}>
-        {error ? (
-          <Box sx={{ flexGrow: 1 }}>
-            <Alert severity="error">{error.message}</Alert>
-          </Box>
-        ) : (
-          <DataGrid
+        <DataGrid
             rows={rowsState.rows}
             columns={columns}
             disableRowSelectionOnClick
@@ -289,7 +281,6 @@ export default function TaskList() {
               },
             }}
           />
-        )}
       </Box>
     </PageContainer>
   );

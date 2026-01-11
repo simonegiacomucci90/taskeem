@@ -1,0 +1,61 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "StrongPassword123!"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./docker/sql:/scripts
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P StrongPassword123! -Q 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - taskeem-network
+
+  db-init:
+    image: mcr.microsoft.com/mssql-tools
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    volumes:
+      - ./docker/sql:/scripts
+    environment:
+      SA_PASSWORD: "StrongPassword123!"
+    command: ["/bin/sh", "/scripts/init-db.sh"]
+    networks:
+      - taskeem-network
+
+  backend:
+    build:
+      context: ./TaskeemBackend
+      dockerfile: Taskeem.Api/dockerfile
+    ports:
+      - "8080:8080"
+    # depends_on:
+      # - db-init
+    environment:
+      ConnectionStrings__DefaultConnection: "Server=sqlserver;Database=Taskeem;User Id=sa;Password=StrongPassword123!;TrustServerCertificate=true"
+      ASPNETCORE_ENVIRONMENT: "Development"
+      Cors__AllowedOrigins__0: "http://localhost:3000"
+      Cors__AllowedOrigins__1: "http://localhost:5173"
+    networks:
+      - taskeem-network
+
+  frontend:
+    build: ./TaskeemFrontend/taskeem-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://backend:8080/api
+    networks:
+      - taskeem-network
+
+networks:
+  taskeem-network:
+    driver: bridge

@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit"
 import type {PayloadAction} from "@reduxjs/toolkit"
-import type { CreateTaskDto, EditTaskDto, Task, TaskFormData } from "../../models/Task"
+import type { CreateTaskDto, EditTaskDto, TaskFormData } from "../../models/Task"
 import tasksApi from "../../api/tasksApi"
 
 interface TasksState {
