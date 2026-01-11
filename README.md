@@ -1,8 +1,8 @@
 # Taskeem - Task Management System
 
-A modern task management system built with .NET 10, React, TypeScript, and SQL Server.
+A task management system built with .NET 10, React, TypeScript, and SQL Server.
 
-## 🏗️ Architecture
+## Architecture
 
 The system consists of:
 - **Backend**: ASP.NET Core REST API (.NET 10) with Entity Framework Core
@@ -10,7 +10,7 @@ The system consists of:
 - **Database**: SQL Server with automatic migrations
 - **Containerization**: Docker Compose for complete orchestration
 
-## 📋 Prerequisites
+## Prerequisites
 
 Before starting, make sure you have installed:
 
@@ -23,7 +23,7 @@ Before starting, make sure you have installed:
 - [**Node.js**](https://nodejs.org/) 18+ with npm
 - [**SQL Server**](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) (if you don't want to use Docker)
 
-## 🚀 Quick Installation and Startup
+## Quick Installation and Startup
 
 ### 1. Clone the repository
 ```bash
@@ -47,7 +47,7 @@ This command will:
 - **Backend API**: http://localhost:8080
 - **Swagger API Docs**: http://localhost:8080/swagger
 
-## 🔧 Configuration
+## Configuration
 
 ### Database
 The system uses SQL Server with the following default credentials:
@@ -61,7 +61,7 @@ The backend is configured to accept requests from:
 - http://localhost:3000 (development frontend)
 - http://localhost:5173 (Vite dev server)
 
-## 💻 Local Development
+## Local Development
 
 ### Backend (.NET)
 ```bash
@@ -83,7 +83,7 @@ If you prefer to use local SQL Server instead of Docker:
 2. Ensure SQL Server is running
 3. The database will be created automatically by migrations
 
-## 🗄️ Database Structure
+## Database Structure
 
 The system includes:
 - **Users**: system user management
@@ -94,7 +94,7 @@ The system comes with pre-loaded demo data:
 - 1 demo user: `demo@company.com`
 - 2 sample tasks
 
-## 🐳 Useful Docker Commands
+## Useful Docker Commands
 
 ```bash
 # Start in background
@@ -113,7 +113,7 @@ docker-compose up --build --force-recreate
 docker-compose down --volumes
 ```
 
-## 🔍 Troubleshooting
+## Troubleshooting
 
 ### SQL Server won't start
 - Make sure Docker Desktop is running
@@ -136,37 +136,3 @@ ports:
   - "8081:8080"  # Change 8080 to 8081
   - "1434:1433"  # Change 1433 to 1434
 ```
-
-## 🧪 Testing
-
-### Backend
-```bash
-cd TaskeemBackend
-dotnet test
-```
-
-## 📁 Project Structure
-
-```
-taskeem/
-├── docker/                    # Database initialization scripts
-├── docker-compose.yml         # Docker configuration
-├── TaskeemBackend/           # .NET Core API
-│   ├── Taskeem.Api/          # Main API
-│   ├── Taskeem.Domain/        # Domain entities and interfaces
-│   └── Taskeem.Domain.EF/     # Entity Framework implementation
-└── TaskeemFrontend/          # React Frontend
-    └── taskeem-frontend/      # React application
-```
-
-## 🤝 Contributing
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is distributed under the MIT License. See the `LICENSE` file for more details.
