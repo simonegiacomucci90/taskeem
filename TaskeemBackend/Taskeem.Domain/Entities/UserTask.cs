@@ -7,6 +7,7 @@
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
         public int Priority { get; set; }
+        public DateTime? NotificationSentAt { get; set; }
 
         //Relationships
         public Guid? IdAssignee { get; set; }

@@ -3,4 +3,5 @@
   <Project Path="Taskeem.Domain.EF.Tests/Taskeem.Domain.EF.Tests.csproj" />
   <Project Path="Taskeem.Domain.EF/Taskeem.Domain.EF.csproj" />
   <Project Path="Taskeem.Domain/Taskeem.Domain.csproj" />
+  <Project Path="Taskeem.Worker.Notifier/Taskeem.Worker.Notifier.csproj" Id="a0f16f5d-8a9d-4f59-b030-c3ad875c602b" />
 </Solution>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Taskeem.Domain.EF.Context;
 
@@ -11,9 +12,11 @@ using Taskeem.Domain.EF.Context;
 namespace Taskeem.Domain.EF.Migrations
 {
     [DbContext(typeof(TaskeemDbContext))]
-    partial class TaskeemDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260111200604_AddNotificationSentAt")]
+    partial class AddNotificationSentAt
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
