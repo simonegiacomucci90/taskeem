@@ -206,7 +206,7 @@ export default function TaskForm(props: TaskFormProps) {
                       fullWidth
                       sx={{
                         '& .MuiInputBase-root': {
-                          minHeight: 120,  // ← Altezza minima
+                          minHeight: 120,  // ← Minimum height
                         }
                       }}
                     />

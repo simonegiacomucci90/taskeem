@@ -44,7 +44,7 @@ using (var scope = app.Services.CreateScope())
     dbContext.Database.Migrate();
 }
 
-// Swagger solo in Development
+// Swagger only in Development
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -62,10 +62,10 @@ app.MapGet("/health", async (TaskeemDbContext dbContext) =>
 {
     try
     {
-        // Verifica che il database sia accessibile e che le tabelle esistano
+        // Verify that the database is accessible and that the tables exist
         await dbContext.Database.CanConnectAsync();
 
-        // Verifica che almeno una tabella esista (ad esempio Users)
+        // Verify that at least one table exists (for example Users)
         var hasUsersTable = await dbContext.Users.AnyAsync();
 
         return Results.Ok(new { status = "healthy", database = "connected" });

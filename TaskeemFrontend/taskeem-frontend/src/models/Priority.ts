@@ -11,7 +11,7 @@ export const Priority = {
   } as const;
 
   export const PriorityColors = {
-    [Priority.LOW]: '#4caf50',    // Verde
-    [Priority.MEDIUM]: '#ff9800', // Arancione
-    [Priority.HIGH]: '#f44336',   // Rosso
+    [Priority.LOW]: '#4caf50',    // Green
+    [Priority.MEDIUM]: '#ff9800', // Orange
+    [Priority.HIGH]: '#f44336',   // Red
   } as const;

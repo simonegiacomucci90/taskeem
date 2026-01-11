@@ -126,7 +126,7 @@ export default function TaskList() {
                 px: 1,
                 py: 0.5,
                 borderRadius: 1,
-                backgroundColor: `${color}20`, // Colore di sfondo trasparente
+                backgroundColor: `${color}20`, // Transparent background color
                 color: color,
                 fontWeight: 'medium',
                 fontSize: '0.875rem',
