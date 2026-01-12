@@ -11,10 +11,22 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class TaskeemDomainEFDependencyInjectionExtension
     {
-        public static IServiceCollection AddTaskeemDomainEF(this IServiceCollection services, string connectionString)
+        public static IServiceCollection AddTaskeemDomainEF(
+            this IServiceCollection services,
+            string connectionString,
+            bool useFactory = false)
         {
-            services.AddDbContext<TaskeemDbContext>(options =>
-                options.UseSqlServer(connectionString));
+
+            if (useFactory)
+            {
+                services.AddDbContextFactory<TaskeemDbContext>(options =>
+                    options.UseSqlServer(connectionString));
+            }
+            else
+            {
+                services.AddDbContext<TaskeemDbContext>(options =>
+                    options.UseSqlServer(connectionString));
+            }
 
             services.AddScoped<IUserTaskRepository, UserTaskRepository>();
             services.AddScoped<IUserRepository, UserRepository>();

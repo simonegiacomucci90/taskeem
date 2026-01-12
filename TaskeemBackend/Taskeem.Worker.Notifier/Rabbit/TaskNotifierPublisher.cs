@@ -8,18 +8,19 @@ namespace Taskeem.Worker.Notifier.Rabbit
 {
     public class TaskNotifierPublisher
     {
-        private readonly IConnection _connection;
+        private readonly RabbitConnectionFactory _connectionFactory;
 
-        public TaskNotifierPublisher(IConnection connection)
+        public TaskNotifierPublisher(RabbitConnectionFactory connectionFactory)
         {
-            _connection = connection;
+            _connectionFactory = connectionFactory;
         }
 
         public async Task Publish(string message)
         {
-            using var channel = await _connection.CreateChannelAsync();
+            var connection = await _connectionFactory.GetConnectionAsync();
+            var channel = await connection.CreateChannelAsync();
             await channel.QueueDeclareAsync(
-                queue: "task_reminder_queue",
+                queue: "task_notifier_queue",
                 durable: true,
                 exclusive: false,
                 autoDelete: false
@@ -28,7 +29,7 @@ namespace Taskeem.Worker.Notifier.Rabbit
             var body = Encoding.UTF8.GetBytes(message);
             await channel.BasicPublishAsync(
                 exchange: "",
-                routingKey: "task_reminder_queue",
+                routingKey: "task_notifier_queue",
                 mandatory: true,
                 basicProperties: new BasicProperties(),
                 body: body

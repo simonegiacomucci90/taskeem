@@ -8,18 +8,19 @@ namespace Taskeem.Worker.Notifier.Rabbit
 {
     public class TaskNotifierConsumer
     {
-        private readonly IConnection _connection;
+        private readonly RabbitConnectionFactory _connectionFactory;
 
         public event Func<string, Task>? OnMessageReceived;
 
-        public TaskNotifierConsumer(IConnection connection)
+        public TaskNotifierConsumer(RabbitConnectionFactory connectionFactory)
         {
-            _connection = connection;
+            _connectionFactory = connectionFactory;
         }
 
         public async Task Start()
         {
-            using var channel = await _connection.CreateChannelAsync();
+            var connection = await _connectionFactory.GetConnectionAsync();
+            var channel = await connection.CreateChannelAsync();
             await channel.QueueDeclareAsync(
                 queue: "task_notifier_queue",
                 durable: true,
