@@ -94,6 +94,9 @@ The system comes with pre-loaded demo data:
 - 1 demo user: `demo@company.com`
 - 2 sample tasks
 
+### Bonus Task (Worker Service)
+The bonus task automatically produces a log file inside the `logs/` folder (created in the same directory as the `docker-compose.yml` file). This log tracks all overdue tasks processed by the system.
+
 ## Useful Docker Commands
 
 ```bash

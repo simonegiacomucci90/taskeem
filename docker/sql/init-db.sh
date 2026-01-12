@@ -1,4 +1,4 @@
-#!/bin/sh
+﻿#!/bin/sh
 
 echo "Waiting for SQL Server..."
 
@@ -13,7 +13,7 @@ done
 
 echo "Running init.sql..."
 
- /opt/mssql-tools/bin/sqlcmd \
+/opt/mssql-tools/bin/sqlcmd \
   -S sqlserver \
   -U sa \
   -P "$SA_PASSWORD" \

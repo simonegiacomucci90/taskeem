@@ -27,7 +27,37 @@ namespace Taskeem.Worker.Notifier
                 overdueLogger.Information($"Hi your Task is due {{Task {taskNotification?.TaskTitle}}}");
                 await Task.CompletedTask;
             };
-            await _consumer.Start();
+
+            // Retry connection to RabbitMQ
+            const int maxRetries = 10;
+            int retryCount = 0;
+            bool connected = false;
+
+            while (!connected && retryCount < maxRetries && !stoppingToken.IsCancellationRequested)
+            {
+                try
+                {
+                    _logger.LogInformation($"Attempting to connect to RabbitMQ (attempt {retryCount + 1}/{maxRetries})...");
+                    await _consumer.Start();
+                    connected = true;
+                    _logger.LogInformation("Successfully connected to RabbitMQ");
+                }
+                catch (Exception ex)
+                {
+                    retryCount++;
+                    _logger.LogWarning(ex, $"Failed to connect to RabbitMQ (attempt {retryCount}/{maxRetries}). Retrying in 5 seconds...");
+
+                    if (retryCount < maxRetries)
+                    {
+                        await Task.Delay(TimeSpan.FromSeconds(5), stoppingToken);
+                    }
+                }
+            }
+
+            if (!connected)
+            {
+                _logger.LogError("Failed to connect to RabbitMQ after {MaxRetries} attempts. Worker will continue without message consumer.", maxRetries);
+            }
             var _dbContext = await _dbContextFactory.CreateDbContextAsync();
 
             _logger.LogInformation("Starting notifier service!");

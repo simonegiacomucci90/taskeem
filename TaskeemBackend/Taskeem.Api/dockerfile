@@ -1,7 +1,7 @@
 # =========================
 # Build stage
 # =========================
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0-preview AS build
 WORKDIR /src
 
 # Copy solution and projects
@@ -12,7 +12,7 @@ COPY Taskeem.Domain.EF/Taskeem.Domain.EF.csproj ./Taskeem.Domain.EF/
 COPY Taskeem.Domain.EF.Tests/Taskeem.Domain.EF.Tests.csproj ./Taskeem.Domain.EF.Tests/
 
 # Restore packages
-RUN dotnet restore
+RUN dotnet restore Taskeem.Api/Taskeem.Api.csproj
 
 # Copy all source code
 COPY . .
@@ -22,7 +22,7 @@ RUN dotnet publish Taskeem.Api/Taskeem.Api.csproj -c Release -o /app/publish
 # =========================
 # Runtime stage
 # =========================
-FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-preview AS runtime
 WORKDIR /app
 
 # Install curl for health checks
@@ -31,6 +31,5 @@ RUN apt-get update && apt-get install -y curl && rm -rf /var/lib/apt/lists/*
 EXPOSE 8080
 
 COPY --from=build /app/publish .
-COPY --from=build /src/Taskeem.Api/entrypoint.sh .
 
-ENTRYPOINT ["./entrypoint.sh"]
+ENTRYPOINT ["dotnet", "Taskeem.Api.dll"]

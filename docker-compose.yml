@@ -64,6 +64,46 @@ services:
     networks:
       - taskeem-network
 
+  taskeem-rabbitmq:
+    image: rabbitmq:3-management
+    container_name: taskeem-rabbitmq
+    depends_on:
+      db-init:
+        condition: service_completed_successfully
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - taskeem-network
+
+  worker:
+    build:
+      context: ./TaskeemBackend
+      dockerfile: Taskeem.Worker.Notifier/Dockerfile
+    depends_on:
+      taskeem-rabbitmq:
+        condition: service_healthy
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=Taskeem;User Id=sa;Password=StrongPassword123!;TrustServerCertificate=true
+      - RabbitMq__Host=taskeem-rabbitmq
+      - RabbitMq__Port=5672
+      - RabbitMq__Username=guest
+      - RabbitMq__Password=guest
+      - NotifierOptions__NotifierDelaySeconds=5
+    networks:
+      - taskeem-network
+    volumes:
+      - ./logs:/app/logs
+
 networks:
   taskeem-network:
     driver: bridge
